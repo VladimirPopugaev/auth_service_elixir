@@ -49,6 +49,18 @@ defmodule AuthServiceWeb.AccountController do
     end
   end
 
+  def sign_out(conn, _) do
+    account = conn.assigns[:account]
+    token = Guardian.Plug.current_token(conn)
+
+    Guardian.revoke(token)
+
+    conn
+    |> Plug.Conn.clear_session()
+    |> put_status(:ok)
+    |> render("account_token.json", %{account: account, token: nil})
+  end
+
   def show(conn, %{"id" => id}) do
     account = Accounts.get_account!(id)
     render(conn, "show.json", account: account)
