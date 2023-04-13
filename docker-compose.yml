@@ -1,0 +1,43 @@
+services:
+
+    db:
+        image: postgres
+        restart: always
+        container_name: database
+        ports: # Docker need to expose ports for you to access your app.
+            - 5432:5432
+        volumes:
+            - ./.database/postgres/data:/var/lib/postgresql/data
+        environment: # Used by the postgres image to setup a default user. For security reason, you should avoid using the postgres user
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: auth_service_prod
+        networks:
+            - auth_service_network
+    
+    app:
+        container_name: elixir_auth_service
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            db:
+                condition: service_started
+        ports: # Docker need to expose ports for you to access your app.
+            - 4001:4001
+        environment:
+            DATABASE_URL: "ecto://postgres:postgres@db/auth_service_prod" # Template : "ecto://db_user:db_password@ip_or_compose_service_name/db_name"
+            SECRET_KEY_BASE: really_long_secret # Can literally be anything, but generally generated randomly by tools like mix phx.gen.secret
+            PORT: 4001
+        networks:
+            - auth_service_network
+
+networks:
+  auth_service_network:
+    driver: bridge
+    attachable: true # Needed in order to run custom commands in the container
+
+#volumes:
+#    pg-data:
+#        external: true # Must use "docker volume create --name=pg-data before
