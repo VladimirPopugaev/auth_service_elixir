@@ -25,4 +25,10 @@ defmodule AuthServiceWeb.AccountView do
       token: token
     }
   end
+
+  def render("info.json", %{response: response}) do
+    %{
+      info: response
+    }
+  end
 end

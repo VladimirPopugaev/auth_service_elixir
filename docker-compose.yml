@@ -28,7 +28,7 @@ services:
             - 4001:4001
         environment:
             DATABASE_URL: "ecto://postgres:postgres@db/auth_service_prod" # Template : "ecto://db_user:db_password@ip_or_compose_service_name/db_name"
-            SECRET_KEY_BASE: really_long_secret # Can literally be anything, but generally generated randomly by tools like mix phx.gen.secret
+            SECRET_KEY_BASE: 65yjxeLHUFqg73KVnvZGevsQOmw63OveFGtHcnDBNdsyX+OnphP3HJ7cRrg9YDv1 # Can literally be anything, but generally generated randomly by tools like mix phx.gen.secret
             PORT: 4001
         networks:
             - auth_service_network

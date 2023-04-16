@@ -38,5 +38,6 @@ defmodule AuthServiceWeb.Router do
     get "/accounts/by_id/:id", AccountController, :show
     get "/accounts/sign_out", AccountController, :sign_out
     post "/accounts/update", AccountController, :update
+    get "/accounts/check_auth", AccountController, :check_auth
   end
 end

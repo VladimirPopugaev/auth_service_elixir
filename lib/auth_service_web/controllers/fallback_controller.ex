@@ -21,4 +21,12 @@ defmodule AuthServiceWeb.FallbackController do
     |> put_view(AuthServiceWeb.ErrorView)
     |> render(:"404")
   end
+
+  # This clause handles errors returned by Ecto's insert/update/delete.
+  def call(conn, {:error, %{} = error}) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(AuthServiceWeb.ChangesetView)
+    |> render("error.json", error: error)
+  end
 end

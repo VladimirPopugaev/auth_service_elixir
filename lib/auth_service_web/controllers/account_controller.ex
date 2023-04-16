@@ -81,4 +81,8 @@ defmodule AuthServiceWeb.AccountController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def check_auth(conn, _) do
+    render(conn, "info.json", response: "authorized")
+  end
 end

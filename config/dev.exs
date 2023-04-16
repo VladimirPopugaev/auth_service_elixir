@@ -2,10 +2,10 @@ import Config
 
 # Configure your database
 config :auth_service, AuthService.Repo,
-  username: "account_user",
-  password: "1234",
+  username: "postgres",
+  password: "postgres",
   hostname: "localhost",
-  database: "auth_service_dev",
+  database: "auth_service_prod",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -23,7 +23,7 @@ config :auth_service, AuthServiceWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "9PhmTmoYtKerO3PF4101a8mjh7+o7ncB0fGdWUcwAVVLAz/JaKZjxAo5z/euSPAu",
+  secret_key_base: "65yjxeLHUFqg73KVnvZGevsQOmw63OveFGtHcnDBNdsyX+OnphP3HJ7cRrg9YDv1",
   watchers: []
 
 # ## SSL Support
